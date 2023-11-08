@@ -1,4 +1,15 @@
 # testy pro hashtable
+
+# upozorneni
+pokud vam bude segfaultovat program, je mozny ze to zpusobuje funkce `get_hash`
+ta pro nektere utf-8 retezce vraci ZAPORNY hash 🙂 opraveni funkce `get_hash`
+je tak trosku zasah do kostry, takze necham na vas, jestli s tim budete neco
+delat nebo ne. pan Zavrel o teto skutecnosti vi a nechal se slyset ze zadani
+je v poradku protoze je v komentari nad funkci `get_hash` napsano:
+```c
+/* zamyslete se nad kvalitou funkce */
+```
+
 ## pouziti testu pro hashtable
 - do adresare `hashtable` pridas `test_muj.c` a `test_muj_2.c`
 - obsah puvodniho `Makefile` nahradis obsahem meho `Makefile`
