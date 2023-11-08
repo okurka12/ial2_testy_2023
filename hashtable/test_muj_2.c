@@ -6,6 +6,9 @@
 #include <string.h>
 #include "hashtable.h"
 
+/* tady dej 1 jestli chces videt prubeh testu */
+#define verbose 0
+
 /* pole 100 ruznych klicu (muzes pridat jestli chces) */
 const unsigned int words_start = __LINE__; char *words[] = {
     "homeschooling",
@@ -1029,6 +1032,7 @@ void insert_bunch(ht_table_t *table) {
         assert(*current == 0.0); /* == u floutu je legalni protoze se nad tou 
         hodnotou nekonaly zadne aritmeticke operace */
     }
+    printf("👍 je to dobry podarilo se vlozit vsechno\n");
 }
 
 /* updatne hodnoty klicu */
@@ -1048,7 +1052,9 @@ void print_all(ht_table_t *table) {
         assert(current != NULL);
 
         /* vypise klic a jeho hodnotu */
+        #if verbose
         printf("%s: %.2f\n", words[i], (double)(*current));
+        #endif // #if verbose
 
         /* zkontroluje jestli je hodnota klice takova jaka ma byt */
         assert(*current == (float)strlen(words[i]));
@@ -1061,9 +1067,19 @@ void print_all(ht_table_t *table) {
 void delete_quarter(ht_table_t *table) {
     unsigned int quarter = word_count / 4;
     for (unsigned int i = quarter; i < 2 * quarter; i++) {
+
+        #if verbose
         printf("mazu %s individualne\n", words[i]);
+        #endif // #if verbose
+
+        /* smaze prvek */
         ht_delete(table, words[i]);
+
+        /* podiva se ze tam fakt neni */
+        assert(ht_search(table, words[i]) == NULL);
+        assert(ht_get(table, words[i]) == NULL);
     }
+    printf("👍 je to dobry podarilo se smazat ctvrtinu veci\n");
 }
 
 /* ujisti se ze v tabulce nic neni */
@@ -1082,7 +1098,7 @@ int main() {
 
     /* zkontroluje ze v inicializovane tabulce neni smeti */
     assert_empty(table);
-    printf("👍 je to dobry tabulka je inicializovana dobre");
+    printf("👍 je to dobry tabulka je inicializovana dobre\n");
 
     /* zanda tam polozky */
     insert_bunch(table);
@@ -1101,11 +1117,12 @@ int main() {
     /* ujisti se ze v tabulce nic neni 
     (pozor to nedetekuje leaky stejne to pust pres valgrind) */
     assert_empty(table);
+    printf("👍 je to dobry podarilo se smazat vse\n");
 
     /* konec testovani -------------------------------------------------------*/
 
-    printf("👍👍👍 dobry vsechny testy prosly ale stejne to pust pres "
-    "valgrind 🔥\n");
+    printf("👍👍👍 dobry 😊 vsechny testy prosly 🥰 nyni to pust pres "
+    "valgrind 🔥💯\n");
 
     /* odkomentovat jestli se chces ujistit ze funguje assert */
     // assert(0);
