@@ -23,3 +23,7 @@ je v poradku protoze je v komentari nad funkci `get_hash` napsano:
 - `make test_muj_2` - prelozi test i ho spusti - je to hromada assertu
 
 potom spuste testy jeste pres valgrind
+
+# pouziti testu pro btree/rec
+## pouziti testu pro btree
+- do adresare `btree/rec` date soubory odsud a date `make run`
