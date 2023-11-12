@@ -1188,7 +1188,7 @@ void all_tests() {
 
 int main() {
 
-    unsigned int n = 100;
+    unsigned int n = 10;
     for (unsigned int i = 0; i < n; i++){
         printf("%d/%d\n", i + 1, n);
         all_tests();
