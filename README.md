@@ -24,6 +24,5 @@ je v poradku protoze je v komentari nad funkci `get_hash` napsano:
 
 potom spuste testy jeste pres valgrind
 
-# pouziti testu pro btree/rec
-## pouziti testu pro btree
+## pouziti testu pro btree/rec
 - do adresare `btree/rec` date soubory odsud a date `make run`
