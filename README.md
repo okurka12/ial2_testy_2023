@@ -1,5 +1,8 @@
 # testy pro hashtable
 
+# upozorneni 2
+pan Zavrel psal na moodle forum ze funkci `get_hash` NEMATE MENIT (i kdyz je na picu)
+
 # upozorneni
 pokud vam bude segfaultovat program, je mozny ze to zpusobuje funkce `get_hash`
 ta pro nektere utf-8 retezce vraci ZAPORNY hash 🙂 opraveni funkce `get_hash`
