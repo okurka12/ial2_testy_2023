@@ -1032,7 +1032,6 @@ void insert_bunch(ht_table_t *table) {
         assert(*current == 0.0); /* == u floutu je legalni protoze se nad tou 
         hodnotou nekonaly zadne aritmeticke operace */
     }
-    printf("👍 je to dobry podarilo se vlozit vsechno\n");
 }
 
 /* updatne hodnoty klicu */
@@ -1060,7 +1059,6 @@ void print_all(ht_table_t *table) {
         assert(*current == (float)strlen(words[i]));
     }
 
-    printf("👍 je to dobry je tam vsech %u klicu :pog:\n", word_count);
 }
 
 /* smaze ctvrtinu klicu individualne */
@@ -1079,7 +1077,6 @@ void delete_quarter(ht_table_t *table) {
         assert(ht_search(table, words[i]) == NULL);
         assert(ht_get(table, words[i]) == NULL);
     }
-    printf("👍 je to dobry podarilo se smazat ctvrtinu veci\n");
 }
 
 /* ujisti se ze v tabulce nic neni */
@@ -1089,7 +1086,7 @@ void assert_empty(ht_table_t *table) {
     }
 }
 
-int main() {
+void test_1() {
 
     /* inicializuje tabulku */
     ht_table_t table_arr;
@@ -1098,7 +1095,6 @@ int main() {
 
     /* zkontroluje ze v inicializovane tabulce neni smeti */
     assert_empty(table);
-    printf("👍 je to dobry tabulka je inicializovana dobre\n");
 
     /* zanda tam polozky */
     insert_bunch(table);
@@ -1117,9 +1113,86 @@ int main() {
     /* ujisti se ze v tabulce nic neni 
     (pozor to nedetekuje leaky stejne to pust pres valgrind) */
     assert_empty(table);
-    printf("👍 je to dobry podarilo se smazat vse\n");
 
-    /* konec testovani -------------------------------------------------------*/
+}
+
+/* smaze kazdou druhou polozku a ujisti se taky ze ten zbytek tam zustal */
+void delete_even(ht_table_t *table) {
+
+    for (unsigned int i = 0; i < word_count; i += 2) {
+        ht_delete(table, words[i]);
+    }
+    for (unsigned int i = 0; i < word_count; i += 2) {
+        assert(ht_search(table, words[i]) == NULL);
+    }
+    for (unsigned int i = 1; i < word_count; i += 2) {
+        assert(ht_search(table, words[i]) != NULL);
+    }
+
+}
+
+void insert_bunch_many_times(ht_table_t *table) {
+    for (unsigned int i = 0; i < 50; i++) {
+        insert_bunch(table);
+    }
+}
+
+void test_2() {
+
+    /* inicializuje tabulku */
+    ht_table_t table_arr;
+    ht_table_t *table = &table_arr;
+    ht_init(table);
+
+    insert_bunch(table);
+    delete_even(table);
+    ht_delete_all(table);
+}
+void test_3() {
+
+    /* inicializuje tabulku */
+    ht_table_t table_arr;
+    ht_table_t *table = &table_arr;
+    ht_init(table);
+
+    insert_bunch_many_times(table);
+
+    delete_even(table);
+    delete_quarter(table);
+    ht_delete_all(table);
+
+}
+
+/* spusti testy nekolikrat v ruznem poradi */
+void all_tests() {
+    test_1();
+    test_2();
+    test_3();
+
+    test_1();
+    test_3();
+    test_2();
+
+    test_3();
+    test_2();
+    test_1();
+
+    test_2();
+    test_1();
+    test_3();
+
+    test_2();
+    test_3();
+    test_1();
+}
+
+int main() {
+
+    unsigned int n = 100;
+    for (unsigned int i = 0; i < n; i++){
+        printf("%d/%d\n", i + 1, n);
+        all_tests();
+    }
 
     printf("👍👍👍 dobry 😊 vsechny testy prosly 🥰 nyni to pust pres "
     "valgrind 🔥💯\n");
